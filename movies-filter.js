@@ -7,21 +7,13 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const MOVIES_API =
         "https://my-json-server.typicode.com/oconsl/json-server/movies";
     
-
     // SELECTORES
     const infoMovie = document.querySelector(".infoMovie")
-    const inputRate = document.querySelector("inputRate")
-    const button = document.querySelector("button")
+    const inputRate = document.querySelector(".inputRate")
     const inputFromDate = document.querySelector(".inputFromDate")
-
-    // FUNCIONES
-    
-
-    button.addEventListener("click", (e)=>{
-        e.preventDefault()
-        console.log(inputFromDate.value)
-        
-    })
+    const inputToDate = document.querySelector(".inputToDate")
+    const inputUserId = document.querySelector(".inputUserId")
+    const button = document.querySelector("button")
 
     fetch(MOVIES_API)
         .then((response) => response.json())
@@ -37,10 +29,11 @@ document.addEventListener("DOMContentLoaded", (e) => {
         .then(movies=> fetch(USERS_API)
              .then(response => response.json())
              .then(users => {
-                console.log(filterMovies({movies: movies, fromDate: "2020-10-06", toDate: "2024-04-01" }))
-                //console.log(new Date("2023-06-20").getTime())
-                // ms de hoy  1687219200000
-                // ms de 1970 1687240448410
+
+                button.addEventListener("click", (e)=>{
+                    e.preventDefault()
+                    console.log(filterMovies({users: users, movies: movies, userId: inputUserId.value, fromDate: inputFromDate.value, toDate: inputToDate.value, rate: inputRate.value}))
+                })
 
 
 
@@ -61,52 +54,39 @@ document.addEventListener("DOMContentLoaded", (e) => {
     // FUNCION: filterMovies
 
     function filterMovies({ users, movies, userId = null, fromDate = null, toDate = null, rate = null }) {
-        //filtrado por usuarios
-        const userFind = []
-        if (userId) { movies.forEach(movie => { if (movie.userId == userId) { userFind.push(movie)} }) }
         
         //filtrado por calificacion
-        const filteredRate = [];
+        let filteredMovies = movies
         if (rate) {  
-            movies.forEach(movie => { if (Math.trunc(movie.rate) == Math.trunc(rate)) { filteredRate.push(movie)} }) }
-
-        //filtrado por fecha HACER ESTO EL MARTES
-       /*  const filteredDate = []
-        if (fromDate){     
-            movies.forEach((movie, index )=>{ 
-                let watchedMs = new Date(movies[index].watched.split(" ")[index])
-                let fromDateMs = new Date(fromDate)
-
-                if (watched >= fromDate) { filteredDate.push(movie)} }) 
-        }
-        return filteredDate */
-        if(fromDate && toDate) {
-            const moviesWatches = functions.filteredDate(movies, fromDate, toDate)
-            return moviesWatches
-    
-        }
-
-
-
+            filteredMovies = functions.fitlterByRate(movies, rate)
+            }
         
+        //filtrado por fecha 
+        if(fromDate && toDate) { 
+            filteredMovies = functions.filterByDate(filteredMovies, fromDate, toDate)
+        }
         
+        //filtrado por usuarios
+        if (userId) {
+            filteredMovies = functions.filterMoviesByUserId(filteredMovies, userId)
+            let user = users.find(user => user.id == userId)
+            let userData = []
+            filteredMovies.forEach(movie => {
+
+                userData.push({
+                    id: user.id,
+                    username: user.username,
+                    email: user.email,
+                    fullAddress: `${user.address.street} - ${user.address.city}`,
+                    company: user.company.name,
+                    movie: movie.title,
+                    rate: movie.rate
+                })
+
+            })
+            return userData
+        }else{return filteredMovies}
+               
     } 
-    
-   
 
-    
-
-
-    /* Nombre de función y parámetros necesarios:
-filterMovies({ users, movies, userId, fromDate, toDate, rate });
-Cada objeto del arreglo debe tener la siguiente estructura:
-{
-id: user.id,
-username: user.username.
-email: user.email,
-fullAddress: `${user.address.street} - ${user.address.city}`
-company: user.company.name,
-movie: movie.title,
-rate: movie.rate
-} */
 });

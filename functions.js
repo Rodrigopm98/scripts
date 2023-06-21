@@ -13,7 +13,12 @@ export default {
         }
         parent.appendChild(element);
     },
-    filteredDate(movies, fromDate, toDate) {
+    filterMoviesByUserId(movies, userId) {
+        const moviesByUserId = []
+        movies.forEach(movie => { if (movie.userId == userId) { moviesByUserId.push(movie)} })
+        return moviesByUserId
+    },
+    filterByDate(movies, fromDate, toDate) {
         const fromDateMs = new Date(fromDate).getTime()
         const toDateMs = new Date(toDate).getTime()
         let watchedMs;
@@ -26,6 +31,11 @@ export default {
         })
         return moviesWatches
 
+    },
+    fitlterByRate(movies, rate){
+        const filteredRate = []
+        movies.forEach(movie => { if (Math.trunc(movie.rate) == Math.trunc(rate)) { filteredRate.push(movie)} }) 
+        return filteredRate
     }
 
     
