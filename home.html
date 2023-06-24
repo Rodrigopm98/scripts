@@ -3,31 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="./style.css">
     <title>Document</title>
 </head>
 <body>
     <header>
-        <h1>Peliculas taquilleras</h1>
+        <h1>Peliculas</h1>
+        <form>
+            <input type="text" placeholder="id de usuario" class="inputUserId">
+            <input type="text" placeholder="Calificacion" class="inputRate" >
+            <input type="date" class="inputFromDate" >
+            <input type="date" class="inputToDate" >
+            <button style="font-size: 0.7rem;">🔍</button>
+        </form>
     </header>
     <main>
-        <div>
-            <form>
-                <input type="text" placeholder="id de usuario" class="inputUserId">
-                <input type="text" placeholder="Calificacion" class="inputRate" >
-                <input type="date" class="inputFromDate" >
-                <input type="date" class="inputToDate" >
-                <button style="font-size: 0.7rem;">🔍</button>
-            </form>
+        <div class="result"></div>
+        <div class="pelicula"></div>
+        <div class="infoMovie" >  
         </div>
-        
-        <div class="infoMovie" >
-            
-        </div>
-        
     </main>
-    <footer>
-    </footer>
-    <script src="movies-filter.js" type="module"></script>
+    <script src="./scripts/movies-filter.js" type="module"></script>
 </body>
 </html>
