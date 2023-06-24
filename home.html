@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    <title>Document</title>
+    <title>Movies</title>
 </head>
 <body>
     <header>
-        <h1>Peliculas</h1>
+        <h1>Películas</h1>
         <form>
             <input type="text" placeholder="id de usuario" class="inputUserId">
             <input type="text" placeholder="Calificacion" class="inputRate" >
-            <input type="date" class="inputFromDate" >
+            <label for="form">Desde:</label>
+            <input type="date" class="inputFromDate" id="form">
+            <label for="form">Hasta:</label>
             <input type="date" class="inputToDate" >
-            <button style="font-size: 0.7rem;">🔍</button>
+            <button>🔍</button>
         </form>
     </header>
     <main>

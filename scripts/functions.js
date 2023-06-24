@@ -20,7 +20,7 @@ export default {
             const container = document.createElement("div");
             container.classList.add("container");
             const title = this.createAndAppendElement("h2", container, null, `${movie.title}`);
-            const genre = this.createAndAppendElement("p", container, null, `Genero: ${movie.genre}`);
+            const genre = this.createAndAppendElement("p", container, null, `Género: ${movie.genre}`);
             const rate = this.createAndAppendElement("p", container, null, `Puntuación: ${movie.rate}`);
             const image = this.createAndAppendElement("img", container, { src: movie.image });
             fragment.appendChild(container);
@@ -83,11 +83,6 @@ export default {
             return userData
         } else { return filteredMovies }
 
-    }
-    
-      
-   
-
-    
+    }    
 }
 
